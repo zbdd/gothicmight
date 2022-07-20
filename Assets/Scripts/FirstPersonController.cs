@@ -132,6 +132,8 @@ namespace StarterAssets
 		private void CameraRotation()
 		{
 			// if there is an input
+			if (_input.inventoryActive) return;
+
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime

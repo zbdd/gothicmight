@@ -10,6 +10,7 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public Vector2 uiLook;
 		public bool jump;
 		public bool sprint;
 		public bool inventoryActive;
@@ -76,10 +77,15 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 
+		public void OnUILook(InputValue value)
+        {
+			uiLook = value.Get<Vector2>();
+        }
+
 		public void OnInteract(InputValue value)
         {
+			inventoryActive = !inventoryActive;
 			cursorLocked = !cursorLocked;
-			cursorInputForLook = !cursorInputForLook;
 			SetCursorState(cursorLocked);
         }
 	}
