@@ -270,17 +270,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0296df5b-e299-4119-bf6a-224a0cf02b87",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "905d2425-946f-4dc8-96ce-613a024a7569",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

@@ -35,11 +35,11 @@ public class MouseLook : MonoBehaviour
 
     private void CastFromCamera()
     {
-        Vector3 direction = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
         RaycastHit hit;
         txt.text = "";
+        var position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
-        if (Physics.Raycast(this.transform.position, direction, out hit, Mathf.Infinity))
+        if (Physics.Raycast(position, transform.forward, out hit, Mathf.Infinity))
         {
             Details deets = hit.transform.GetComponent<Details>();
             if (deets)

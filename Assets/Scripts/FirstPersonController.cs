@@ -118,7 +118,22 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Interact();
 		}
+
+		private void Interact()
+        {
+			if (_input.interact && _mouse.objectInFocus)
+            {
+				ConversationController conv = _mouse.objectInFocus.GetComponent<ConversationController>();
+				if (conv)
+                {
+					conv.OnInteract();
+                }
+            }
+
+			_input.interact = false;
+        }
 
 		private void LateUpdate()
 		{

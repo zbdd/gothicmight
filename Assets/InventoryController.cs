@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
     GameObject questlog;
-    public bool questLogIsOpen = false;
     float speed = 10f;
     Vector3 targetPosition;
+
+    public bool questLogIsOpen = false;
+    public GameObject dialogBox;
+    public TextMeshProUGUI dialogText;
+    public bool dialogIsActive;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,4 +27,20 @@ public class InventoryController : MonoBehaviour
     {
         if (questLogIsOpen) questlog.transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
+
+    public void SetDialogBox(string text)
+    {
+        if (dialogIsActive) { CloseDialogBox(); return; }
+
+        dialogIsActive = true;
+        dialogText.text = text;
+        dialogBox.SetActive(true);
+    }
+
+    public void CloseDialogBox()
+    {
+        dialogIsActive = false;
+        dialogBox.SetActive(false);
+    }
+
 }
