@@ -6,6 +6,7 @@ using TMPro;
 public class ConversationController : MonoBehaviour
 {
     public InventoryController iC;
+    NPCController npc;
     State state;
     enum State
     {
@@ -16,7 +17,8 @@ public class ConversationController : MonoBehaviour
 
     public void Start()
     {
-        state = State.idle;   
+        state = State.idle;
+        npc = GetComponent<NPCController>();
     }
 
     public void OnInteract()
@@ -25,7 +27,7 @@ public class ConversationController : MonoBehaviour
         switch (state)
         {
             case State.idle:
-                option = "Do not disturb me citizen";
+                option = npc.GUARD_IDLE_CONVO;
                 break;
         }
 
