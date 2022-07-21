@@ -8,6 +8,7 @@ public class MouseLook : MonoBehaviour
 {
     StarterAssetsInputs starterAssets;
     TextMeshProUGUI txt;
+    public GameObject objectInFocus;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        objectInFocus = null;
         if (starterAssets)
         {
             if (starterAssets.inventoryActive) CastFromScreen(); 
@@ -43,6 +45,7 @@ public class MouseLook : MonoBehaviour
             if (deets)
             {
                 txt.text = deets.name;
+                objectInFocus = hit.transform.gameObject;
 
             }
 
@@ -57,11 +60,12 @@ public class MouseLook : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            Details deets = hit.transform.GetComponent<Details>();
+           // Debug.Log(hit.transform.name);
+           Details deets = hit.transform.GetComponent<Details>();
             if (deets)
             {
                 txt.text = deets.name;
-
+                objectInFocus = hit.transform.gameObject;
             }
         }
     }

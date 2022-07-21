@@ -72,6 +72,8 @@ namespace StarterAssets
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
 
+		private MouseLook _mouse;
+
 		private const float _threshold = 0.01f;
 
 		private bool IsCurrentDeviceMouse
@@ -93,6 +95,7 @@ namespace StarterAssets
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
+			_mouse = GetComponent<MouseLook>();
 		}
 
 		private void Start()

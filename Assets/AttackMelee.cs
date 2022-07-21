@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackMelee : MonoBehaviour
 {
     Animator anim;
-    AudioSource audio;
+    new AudioSource audio;
 
     private void Start()
     {

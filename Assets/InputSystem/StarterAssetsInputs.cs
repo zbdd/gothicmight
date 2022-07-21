@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool inventoryActive;
+		public bool interact;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -83,6 +84,11 @@ namespace StarterAssets
         }
 
 		public void OnInteract(InputValue value)
+        {
+			interact = true;
+        }
+
+		public void OnOpenMenu(InputValue value)
         {
 			inventoryActive = !inventoryActive;
 			cursorLocked = !cursorLocked;
