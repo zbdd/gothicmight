@@ -54,6 +54,21 @@ public class HUDController : MonoBehaviour
         iFC.ToggleActive(true);
     }
 
+    public void OnMenuInteract()
+    {
+        if (invIsOpen)
+        {
+            if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
+            {
+                InventoryItemController invCon = inventory.GetComponent<InventoryController>().GetSelected();
+                if (invCon)
+                {
+                    invCon.OnItemSelected();
+                }
+            }
+        }
+    }
+
     public void SetInventoryOpen(bool state)
     {
         if (invIsOpen && state == false) if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);

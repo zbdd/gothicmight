@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class QuestlogController : MonoBehaviour, IPointerClickHandler
+public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 {
     public GameObject questlogOpened;
 
     HUDController hud;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (hud) hud.ShowFocused(GetComponent<Image>());
+        OnItemSelected();
         //Debug.Log("Got CLICK");
+    }
+
+    public void OnItemSelected()
+    {
+        if (hud) hud.ShowFocused(GetComponent<Image>());
     }
 
     // Start is called before the first frame update

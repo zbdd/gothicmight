@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool interact;
+		public bool menuInteract = false;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -45,7 +46,8 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+			if (!hud.invIsOpen) JumpInput(value.isPressed);
+			else menuInteract = true;
 		}
 
 		public void OnSprint(InputValue value)
@@ -106,6 +108,11 @@ namespace StarterAssets
 			SetCursorState(cursorLocked);
 			hud.SetInventoryOpen(!cursorLocked);
 		}
+
+		public void OnUIEnter(InputValue value)
+        {
+			menuInteract = true;
+        }
 	}
 	
 }

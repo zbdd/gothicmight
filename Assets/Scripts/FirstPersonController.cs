@@ -122,7 +122,15 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			Interact();
+			MenuInteract();
 		}
+
+		private void MenuInteract()
+        {
+			if (_input.menuInteract) hud.OnMenuInteract();
+
+			_input.menuInteract = false;
+        }
 
 		private void Interact()
         {
