@@ -12,13 +12,16 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
     Vector3 targetPosition;
     ItemFocusedController iFC;
 
-    public State state = State.idle;
+    public State OldState { get; private set; } = State.idle;
+    public State CurrentState { get; private set; } = State.idle;
     public GameObject itemFocus;
     public GameObject inventory;
     public bool questLogIsOpen = false;
     public GameObject dialogBox;
     public TextMeshProUGUI dialogText;
     public bool dialogIsActive;
+    public WeaponController weapon;
+    public TextMeshProUGUI debugText;
 
     public enum State
     {
@@ -42,6 +45,47 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
     void Update()
     {
         if (questLogIsOpen) questlog.transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+        debugText.text = CurrentState + "";
+    }
+
+    public void SetState(State newState)
+    {
+        if (CurrentState == newState) return;
+        
+        OldState = CurrentState;
+        OnStateEnd(OldState);
+        CurrentState = newState;
+        OnStateStart(CurrentState);
+    }
+
+    private void OnStateEnd(State oldState)
+    {
+        switch (oldState)
+        {
+            case State.fight:
+                weapon.PutAway();
+                break;
+            case State.inventory:
+                inventory.SetActive(false);
+                if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
+                break;
+        }
+        
+        CloseOther();
+    }
+
+    private void OnStateStart(State newState)
+    {
+        switch (newState)
+        {
+            case State.fight:
+                weapon.Brandish();
+                break;
+            case State.inventory:
+                inventory.SetActive(true);
+                break;
+        }
     }
 
     public void SetDialogBox(string text)
@@ -79,7 +123,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
     {
         CloseOther();
         
-        if (state == State.inventory)
+        if (CurrentState == State.inventory)
         {
             if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
             {
@@ -92,23 +136,15 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
         }
     }
 
-    public void SetInventoryState(State state)
-    {
-        CloseOther();
-        
-        if (this.state == State.inventory && state != State.inventory) if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
-        this.state = state;
-        if (state == State.inventory) inventory.SetActive(true);
-        else inventory.SetActive(false);
-
-    }
-
     public void OnUpdateFromHandler(StarterAssetsInputs.Input type)
     {
         switch (type)
         {
             case StarterAssetsInputs.Input.Any:
                 OnAnyKey();
+                break;
+            case StarterAssetsInputs.Input.FightMode:
+                SetState(CurrentState == State.fight ? OldState : State.fight);
                 break;
         }
     }

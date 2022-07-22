@@ -30,10 +30,11 @@ namespace StarterAssets
 		public enum Input
 		{
 			Any,
+			FightMode,
 		}
         private void Update()
         {
-            if (hud.state != HUDController.State.inventory && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
+            if (hud.CurrentState != HUDController.State.inventory && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
         }
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -52,7 +53,7 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			if (hud.state != HUDController.State.inventory) JumpInput(value.isPressed);
+			if (hud.CurrentState != HUDController.State.inventory) JumpInput(value.isPressed);
 			else menuInteract = true;
 		}
 
@@ -104,12 +105,12 @@ namespace StarterAssets
 
 		public void OnOpenMenu(InputValue value)
         {
-			if (hud.state == HUDController.State.inventory)
+			if (hud.CurrentState == HUDController.State.inventory)
 			{
 				cursorLocked = true;
-				hud.SetInventoryState(HUDController.State.idle);
+				hud.SetState(HUDController.State.idle);
 			}
-			else { cursorLocked = false; hud.SetInventoryState(HUDController.State.inventory); }
+			else { cursorLocked = false; hud.SetState(HUDController.State.inventory); }
 
 			SetCursorState(cursorLocked);
 		}
@@ -118,6 +119,11 @@ namespace StarterAssets
         {
 			menuInteract = true;
         }
+
+		public void OnFightMode(InputValue value)
+		{
+			Broadcast(Input.FightMode);
+		}
 
 		public void OnAny(InputValue value)
 		{

@@ -9,7 +9,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour
+	public class FirstPersonController : MonoBehaviour, IPlayerInputListener
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -125,6 +125,11 @@ namespace StarterAssets
 			MenuInteract();
 		}
 
+		private void OnFightModeActivated()
+		{
+			
+		}
+
 		private void MenuInteract()
         {
 			if (_input.menuInteract) hud.OnMenuInteract();
@@ -158,7 +163,7 @@ namespace StarterAssets
 		private void CameraRotation()
 		{
 			// if there is an input
-			if (hud.state != HUDController.State.idle) return;
+			if (hud.CurrentState == HUDController.State.inventory) return;
 
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
@@ -291,6 +296,16 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		public void OnUpdateFromHandler(StarterAssetsInputs.Input type)
+		{
+			switch (type)
+			{
+				case StarterAssetsInputs.Input.FightMode:
+					OnFightModeActivated();
+					break;
+			}
 		}
 	}
 }

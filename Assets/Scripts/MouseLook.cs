@@ -26,7 +26,7 @@ public class MouseLook : MonoBehaviour
         objectInFocus = null;
         if (hud)
         {
-            if (hud.state == HUDController.State.idle) CastFromScreen(); 
+            if (hud.CurrentState == HUDController.State.idle) CastFromScreen(); 
             else CastFromCamera();
         }
     }
