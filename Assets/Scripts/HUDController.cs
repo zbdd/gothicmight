@@ -11,13 +11,20 @@ public class HUDController : MonoBehaviour
     Vector3 targetPosition;
     ItemFocusedController iFC;
 
-    public bool invIsOpen = false;
+    public State state = State.idle;
     public GameObject itemFocus;
     public GameObject inventory;
     public bool questLogIsOpen = false;
     public GameObject dialogBox;
     public TextMeshProUGUI dialogText;
     public bool dialogIsActive;
+
+    public enum State
+    {
+        idle,
+        inventory,
+        fight
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +75,7 @@ public class HUDController : MonoBehaviour
     {
         CloseOther();
         
-        if (invIsOpen)
+        if (state == State.inventory)
         {
             if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
             {
@@ -81,13 +88,14 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void SetInventoryOpen(bool state)
+    public void SetInventoryState(State state)
     {
         CloseOther();
         
-        if (invIsOpen && state == false) if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
-        invIsOpen = state;
-        inventory.SetActive(state);
+        if (this.state == State.inventory && state != State.inventory) if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
+        this.state = state;
+        if (state == State.inventory) inventory.SetActive(true);
+        else inventory.SetActive(false);
 
     }
 }

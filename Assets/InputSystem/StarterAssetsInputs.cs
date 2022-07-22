@@ -27,7 +27,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            if (!hud.invIsOpen && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
+            if (hud.state != HUDController.State.inventory && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
         }
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -46,7 +46,7 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			if (!hud.invIsOpen) JumpInput(value.isPressed);
+			if (hud.state != HUDController.State.inventory) JumpInput(value.isPressed);
 			else menuInteract = true;
 		}
 
@@ -98,15 +98,14 @@ namespace StarterAssets
 
 		public void OnOpenMenu(InputValue value)
         {
-			if (hud.invIsOpen)
+			if (hud.state == HUDController.State.inventory)
 			{
 				cursorLocked = true;
-				hud.SetInventoryOpen(false);
+				hud.SetInventoryState(HUDController.State.idle);
 			}
-			else { cursorLocked = false; hud.SetInventoryOpen(true); }
+			else { cursorLocked = false; hud.SetInventoryState(HUDController.State.inventory); }
 
 			SetCursorState(cursorLocked);
-			hud.SetInventoryOpen(!cursorLocked);
 		}
 
 		public void OnUIEnter(InputValue value)

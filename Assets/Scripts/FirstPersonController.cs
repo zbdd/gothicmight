@@ -158,7 +158,7 @@ namespace StarterAssets
 		private void CameraRotation()
 		{
 			// if there is an input
-			if (hud.invIsOpen) return;
+			if (hud.state != HUDController.State.idle) return;
 
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
