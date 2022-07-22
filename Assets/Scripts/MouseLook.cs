@@ -7,7 +7,7 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     StarterAssetsInputs starterAssets;
-    TextMeshProUGUI txt;
+    public TextMeshProUGUI txt;
     HUDController hud;
     public GameObject objectInFocus;
 
@@ -16,12 +16,8 @@ public class MouseLook : MonoBehaviour
     {
         starterAssets = GetComponent<StarterAssetsInputs>();
 
-        GameObject uiText = GameObject.FindGameObjectWithTag("HUD");
-        hud = uiText.GetComponent<HUDController>();
-        if (uiText)
-        {
-            txt = uiText.GetComponent<TextMeshProUGUI>();
-        }
+        GameObject hudGO = GameObject.Find("HUD");
+        hud = hudGO.GetComponent<HUDController>();
     }
 
     // Update is called once per frame
@@ -39,17 +35,16 @@ public class MouseLook : MonoBehaviour
     {
         RaycastHit hit;
         txt.text = "";
-        var position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        var thisPosition = transform.position;
+        var position = new Vector3(thisPosition.x, thisPosition.y + 1, thisPosition.z);
 
-        if (Physics.Raycast(position, transform.forward, out hit, Mathf.Infinity))
+        if (!Physics.Raycast(position, transform.forward, out hit, Mathf.Infinity)) return;
+        
+        Details deets = hit.transform.GetComponent<Details>();
+        if (deets)
         {
-            Details deets = hit.transform.GetComponent<Details>();
-            if (deets)
-            {
-                txt.text = deets.name;
-                objectInFocus = hit.transform.gameObject;
-
-            }
+            txt.text = deets.name;
+            objectInFocus = hit.transform.gameObject;
 
         }
     }

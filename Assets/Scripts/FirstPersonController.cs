@@ -136,11 +136,7 @@ namespace StarterAssets
         {
 			if (_input.interact && _mouse.objectInFocus)
             {
-				ConversationController conv = _mouse.objectInFocus.GetComponent<ConversationController>();
-				if (conv)
-                {
-					conv.OnInteract();
-                }
+	            //if (_mouse.objectInFocus.)
             }
 
 			_input.interact = false;

@@ -1868,11 +1868,11 @@ GameObject:
   - component: {fileID: 1706964478}
   - component: {fileID: 1706964480}
   - component: {fileID: 1706964482}
-  - component: {fileID: 1706964481}
   - component: {fileID: 1706964483}
   - component: {fileID: 1706964484}
   - component: {fileID: 1706964485}
   - component: {fileID: 1706964486}
+  - component: {fileID: 1706964481}
   - component: {fileID: 1706964487}
   m_Layer: 0
   m_Name: NPC
@@ -2944,6 +2944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53afea00d4fe1d545975e3546419cf91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txt: {fileID: 2040661662}
   objectInFocus: {fileID: 0}
 --- !u!114 &135756641613574981
 MonoBehaviour:
