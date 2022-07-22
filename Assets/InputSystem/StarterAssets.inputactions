@@ -333,10 +333,21 @@
                 {
                     "name": "",
                     "id": "e1fc04f8-257c-4060-bb42-c21d10929392",
-                    "path": "<Mouse>/press",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "Any",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a193e0fe-0299-4c41-b1fc-b41a09e4901c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Any",
                     "isComposite": false,
                     "isPartOfComposite": false

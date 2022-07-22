@@ -6,13 +6,11 @@ using UnityEngine.UI;
 
 public class InventoryItemController : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject questlogOpened;
-
     HUDController hud;
+    public ItemStats stats;
     public void OnPointerClick(PointerEventData eventData)
     {
         OnItemSelected();
-        //Debug.Log("Got CLICK");
     }
 
     public void OnItemSelected()

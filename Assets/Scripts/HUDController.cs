@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class HUDController : MonoBehaviour
+public class HUDController : MonoBehaviour, IPlayerInputListener
 {
     GameObject questlog;
     float speed = 10f;
@@ -32,6 +33,9 @@ public class HUDController : MonoBehaviour
         questlog = GameObject.Find("Questlog Opened");
         targetPosition = new Vector3(0, -710, 0);
         iFC = itemFocus.GetComponent<ItemFocusedController>();
+
+        StarterAssetsInputs startInput = GameObject.Find("PlayerCapsule").GetComponent<StarterAssetsInputs>();
+        startInput.Register(this);
     }
 
     // Update is called once per frame
@@ -97,5 +101,15 @@ public class HUDController : MonoBehaviour
         if (state == State.inventory) inventory.SetActive(true);
         else inventory.SetActive(false);
 
+    }
+
+    public void OnUpdateFromHandler(StarterAssetsInputs.Input type)
+    {
+        switch (type)
+        {
+            case StarterAssetsInputs.Input.Any:
+                OnAnyKey();
+                break;
+        }
     }
 }

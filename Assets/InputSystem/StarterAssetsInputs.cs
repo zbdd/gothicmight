@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace StarterAssets
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class StarterAssetsInputs : MonoBehaviour, IPlayerInputHandler
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
@@ -24,7 +25,12 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 		public HUDController hud;
+		private ArrayList listeners = new ArrayList();
 
+		public enum Input
+		{
+			Any,
+		}
         private void Update()
         {
             if (hud.state != HUDController.State.inventory && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
@@ -115,7 +121,27 @@ namespace StarterAssets
 
 		public void OnAny(InputValue value)
 		{
-			hud.OnAnyKey();
+			//hud.OnAnyKey();
+			Broadcast(Input.Any);
+		}
+
+		private void Broadcast(Input type)
+		{
+			foreach (IPlayerInputListener listener in listeners)
+			{
+				listener.OnUpdateFromHandler(type);
+			}
+		}
+
+		public void Register(IPlayerInputListener listener)
+		{
+			if (listeners.Contains(listener)) return;
+			listeners.Add(listener);
+		}
+
+		public void Unregister(IPlayerInputListener listener)
+		{
+			listeners.Remove(listener);
 		}
 	}
 	
