@@ -1,7 +1,9 @@
-﻿namespace StarterAssets
+﻿using UnityEngine;
+
+namespace StarterAssets
 {
     public interface IInteractable
     {
-        public void OnInteract();
+        public void OnInteract(GameObject other);
     }
 }

@@ -113,6 +113,11 @@ namespace StarterAssets
         {
 			menuInteract = true;
         }
+
+		public void OnAny(InputValue value)
+		{
+			hud.OnAnyKey();
+		}
 	}
 	
 }

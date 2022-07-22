@@ -135,9 +135,10 @@ namespace StarterAssets
 		private void Interact()
         {
 			if (_input.interact && _mouse.objectInFocus)
-            {
-	            //if (_mouse.objectInFocus.)
-            }
+			{
+				IInteractable interact = _mouse.objectInFocus.GetComponent<NPCController>();
+				interact?.OnInteract(gameObject);
+			}
 
 			_input.interact = false;
         }

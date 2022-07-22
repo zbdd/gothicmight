@@ -7,6 +7,7 @@ public class NPCController : MonoBehaviour, IInteractable
 {
     public ArrayList hostileTo;
 
+    private ConversationController _convo;
     private AttackMelee _attackMelee;
     private ArrayList _objectsInProxmity;
 
@@ -16,8 +17,9 @@ public class NPCController : MonoBehaviour, IInteractable
     void Start()
     {
         _objectsInProxmity = new ArrayList();
-        hostileTo = new ArrayList { GameObject.Find("PlayerCapsule") };
+        hostileTo = new ArrayList();// { GameObject.Find("PlayerCapsule") };
         _attackMelee = GetComponent<AttackMelee>();
+        _convo = GetComponent<ConversationController>();
     }
 
     // Update is called once per frame
@@ -36,9 +38,14 @@ public class NPCController : MonoBehaviour, IInteractable
         
     }
 
-    public void OnInteract()
+    public void OnInteract(GameObject other)
     {
+        if (!_objectsInProxmity.Contains(other) || hostileTo.Contains(other)) return;
         
+        if (_convo)
+        {
+            _convo.OnInteract();
+        }
     }
     
     private void OnTriggerEnter(Collider other)

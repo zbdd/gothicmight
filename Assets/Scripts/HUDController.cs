@@ -42,6 +42,16 @@ public class HUDController : MonoBehaviour
         dialogBox.SetActive(true);
     }
 
+    public void OnAnyKey()
+    {
+        CloseOther();
+    }
+
+    private void CloseOther()
+    {
+        if (dialogIsActive) CloseDialogBox();
+    }
+
     public void CloseDialogBox()
     {
         dialogIsActive = false;
@@ -56,6 +66,8 @@ public class HUDController : MonoBehaviour
 
     public void OnMenuInteract()
     {
+        CloseOther();
+        
         if (invIsOpen)
         {
             if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
@@ -71,6 +83,8 @@ public class HUDController : MonoBehaviour
 
     public void SetInventoryOpen(bool state)
     {
+        CloseOther();
+        
         if (invIsOpen && state == false) if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
         invIsOpen = state;
         inventory.SetActive(state);
