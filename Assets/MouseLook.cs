@@ -8,6 +8,7 @@ public class MouseLook : MonoBehaviour
 {
     StarterAssetsInputs starterAssets;
     TextMeshProUGUI txt;
+    HUDController hud;
     public GameObject objectInFocus;
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class MouseLook : MonoBehaviour
         starterAssets = GetComponent<StarterAssetsInputs>();
 
         GameObject uiText = GameObject.FindGameObjectWithTag("HUD");
+        hud = uiText.GetComponent<HUDController>();
         if (uiText)
         {
             txt = uiText.GetComponent<TextMeshProUGUI>();
@@ -26,9 +28,9 @@ public class MouseLook : MonoBehaviour
     void Update()
     {
         objectInFocus = null;
-        if (starterAssets)
+        if (hud)
         {
-            if (starterAssets.inventoryActive) CastFromScreen(); 
+            if (hud.invIsOpen) CastFromScreen(); 
             else CastFromCamera();
         }
     }

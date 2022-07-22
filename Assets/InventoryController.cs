@@ -1,46 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    GameObject questlog;
-    float speed = 10f;
-    Vector3 targetPosition;
+    private ArrayList list;
+    Vector3 startPos;
+    int maxX = 3;
 
-    public bool questLogIsOpen = false;
-    public GameObject dialogBox;
-    public TextMeshProUGUI dialogText;
-    public bool dialogIsActive;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        questlog = GameObject.Find("Questlog Opened");
-        targetPosition = new Vector3(0, -710, 0);
+        list = new ArrayList();
+        startPos = new Vector3(380, 200);
+
+        AddToList(GameObject.Find("Questlog"));
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (questLogIsOpen) questlog.transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        
     }
 
-    public void SetDialogBox(string text)
+    public void AddToList(GameObject item)
     {
-        if (dialogIsActive) { CloseDialogBox(); return; }
-
-        dialogIsActive = true;
-        dialogText.text = text;
-        dialogBox.SetActive(true);
+        list.Add(item);
+        list.Sort();
+        DisplayList();
     }
 
-    public void CloseDialogBox()
+    private void DisplayList()
     {
-        dialogIsActive = false;
-        dialogBox.SetActive(false);
-    }
+        for(var i =0; i < list.Count; i++)
+        {
+            GameObject obj = list[i] as GameObject;
+            var xAxis = 0;
+            if (i > 0) xAxis = maxX / i;
+            obj.transform.localPosition = new Vector3(startPos.x + (110 * xAxis), startPos.y + (110 * Mathf.FloorToInt(i/maxX)));
 
+           // Debug.Log("" + startPos.x + (110 * xAxis) + "" + startPos.y + (110 * Mathf.FloorToInt(i / maxX)));
+        }
+    }
 }

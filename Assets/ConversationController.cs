@@ -5,7 +5,7 @@ using TMPro;
 
 public class ConversationController : MonoBehaviour
 {
-    public InventoryController iC;
+    public HUDController iC;
     NPCController npc;
     State state;
     enum State

@@ -13,7 +13,6 @@ namespace StarterAssets
 		public Vector2 uiLook;
 		public bool jump;
 		public bool sprint;
-		public bool inventoryActive;
 		public bool interact;
 
 		[Header("Movement Settings")]
@@ -23,8 +22,15 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		public HUDController hud;
+
+        private void Update()
+        {
+            if (!hud.invIsOpen && cursorLocked == false) { cursorLocked = true; SetCursorState(cursorLocked); } // handle left-clicks occuring that are not captured by this input controller
+        }
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -90,10 +96,16 @@ namespace StarterAssets
 
 		public void OnOpenMenu(InputValue value)
         {
-			inventoryActive = !inventoryActive;
-			cursorLocked = !cursorLocked;
+			if (hud.invIsOpen)
+			{
+				cursorLocked = true;
+				hud.SetInventoryOpen(false);
+			}
+			else { cursorLocked = false; hud.SetInventoryOpen(true); }
+
 			SetCursorState(cursorLocked);
-        }
+			hud.SetInventoryOpen(!cursorLocked);
+		}
 	}
 	
 }
