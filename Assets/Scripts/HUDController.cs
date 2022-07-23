@@ -12,6 +12,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     float speed = 10f;
     Vector3 targetPosition;
     ItemFocusedController iFC;
+    public InventoryController invCont;
 
     public State OldState { get; private set; } = State.idle;
     public State CurrentState { get; private set; } = State.idle;
@@ -55,7 +56,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
 
     public void SetState(State newState)
     {
-        if (CurrentState == newState) return;
+        if (CurrentState == newState) newState = OldState;
         
         OldState = CurrentState;
         OnStateEnd(OldState);
@@ -110,6 +111,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     private void CloseOther()
     {
         if (dialogIsActive) CloseDialogBox();
+        if (iFC.isActive) iFC.ToggleActive(false); 
     }
 
     public void CloseDialogBox()
@@ -122,6 +124,12 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     {
         iFC.image = image;
         iFC.ToggleActive(true);
+        invCont.SetSelectedView(false);
+    }
+
+    public void OnItemFocusedClosed()
+    {
+        invCont.SetSelectedView(true);
     }
 
     public void OnMenuInteract()
@@ -132,7 +140,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         {
             if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
             {
-                ItemController invCon = inventory.GetComponent<InventoryController>().GetSelected();
+                ItemController invCon = invCont.GetSelected();
                 if (invCon)
                 {
                     invCon.OnItemClicked();
@@ -145,11 +153,14 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     {
         switch (type)
         {
+            case StarterAssetsInputs.Input.OpenInventory:
+                SetState(State.inventory);
+                break;
             case StarterAssetsInputs.Input.Any:
                 OnAnyKey();
                 break;
             case StarterAssetsInputs.Input.FightMode:
-                SetState(CurrentState == State.fight ? OldState : State.fight);
+                SetState(State.fight);
                 break;
         }
     }

@@ -70,6 +70,12 @@ public class InventoryController : MonoBehaviour, IPlayerInputListener
             }
         }
     }
+    
+    public void SetSelectedView(bool state)
+    {
+        if (state) selectedImage.gameObject.SetActive(true);
+        else selectedImage.gameObject.SetActive(false);
+    }
 
     public void SetSelected(ItemController select)
     {

@@ -30,6 +30,7 @@ namespace StarterAssets
 		public enum Input
 		{
 			Any,
+			OpenInventory,
 			FightMode,
 			Left,
 			Right,
@@ -114,12 +115,13 @@ namespace StarterAssets
 
 		public void OnOpenMenu(InputValue value)
         {
+	        Broadcast(Input.OpenInventory);
+	        
 			if (hud.CurrentState == HUDController.State.inventory)
 			{
-				cursorLocked = true;
-				hud.SetState(HUDController.State.idle);
+				cursorLocked = false;
 			}
-			else { cursorLocked = false; hud.SetState(HUDController.State.inventory); }
+			else { cursorLocked = true; }
 
 			SetCursorState(cursorLocked);
 		}

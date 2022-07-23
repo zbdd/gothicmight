@@ -42,6 +42,6 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     public void ToggleActive(bool state)
     {
         isActive = state;
-        if (!isActive) hud.SetState(HUDController.State.idle);
+        if (!isActive) hud.OnItemFocusedClosed();
     }
 }
