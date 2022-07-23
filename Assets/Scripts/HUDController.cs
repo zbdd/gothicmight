@@ -69,7 +69,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         switch (oldState)
         {
             case State.fight:
-                weapon.PutAway();
+                weapon.SetState(WeaponController.State.Lowered);
                 break;
             case State.inventory:
                 inventory.SetActive(false);
@@ -85,7 +85,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         switch (newState)
         {
             case State.fight:
-                weapon.Brandish();
+                weapon.SetState(WeaponController.State.Raised);
                 break;
             case State.inventory:
                 inventory.SetActive(true);
@@ -149,10 +149,19 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         }
     }
 
+    private void ShowAttack()
+    {
+        weapon.SetState(WeaponController.State.Attack);
+    }
+
     public void OnUpdateFromHandler(StarterAssetsInputs.Input type)
     {
         switch (type)
         {
+            case StarterAssetsInputs.Input.Interact:
+                if (CurrentState == State.fight) ShowAttack();
+                else OnMenuInteract();
+                break;
             case StarterAssetsInputs.Input.OpenInventory:
                 SetState(State.inventory);
                 break;

@@ -35,7 +35,8 @@ namespace StarterAssets
 			Left,
 			Right,
 			Up,
-			Down
+			Down,
+			Interact
 		}
         private void Update()
         {
@@ -111,6 +112,7 @@ namespace StarterAssets
 		public void OnInteract(InputValue value)
         {
 			interact = true;
+			Broadcast(Input.Interact);
         }
 
 		public void OnOpenMenu(InputValue value)

@@ -124,6 +124,16 @@ namespace StarterAssets
 			Move();
 			Interact();
 			MenuInteract();
+			Attack();
+		}
+
+		private void Attack()
+		{
+			if (_input.interact && hud.CurrentState.Equals(HUDController.State.fight))
+			{
+				
+				_input.interact = false;
+			}
 		}
 
 		private void OnFightModeActivated()
@@ -133,9 +143,13 @@ namespace StarterAssets
 
 		private void MenuInteract()
         {
-			if (_input.menuInteract) hud.OnMenuInteract();
+	        if (_input.menuInteract)
+	        {
+		        hud.OnMenuInteract();
 
-			_input.menuInteract = false;
+
+		        _input.menuInteract = false;
+	        }
         }
 
 		private void Interact()
@@ -144,9 +158,9 @@ namespace StarterAssets
 			{
 				IInteractable interact = _mouse.objectInFocus.GetComponent<NPCController>();
 				interact?.OnInteract(gameObject);
+				
+				_input.interact = false;
 			}
-
-			_input.interact = false;
         }
 
 		private void LateUpdate()
