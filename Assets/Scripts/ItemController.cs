@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemController : MonoBehaviour, IPointerClickHandler, IComparable<ItemController>
+public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IComparable<ItemController>
 {
     private HUDController _hud;
 
@@ -16,10 +17,15 @@ public class ItemController : MonoBehaviour, IPointerClickHandler, IComparable<I
     public ItemStats stats;
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnItemSelected();
+        OnItemClicked();
     }
 
-    public void OnItemSelected()
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameObject.Find("Inventory").GetComponent<InventoryController>().SetSelected(this);
+    }
+
+    public void OnItemClicked()
     {
         if (_hud && canFocus) _hud.ShowFocused(GetComponent<Image>());
     }

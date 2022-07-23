@@ -69,7 +69,15 @@ public class InventoryController : MonoBehaviour, IPlayerInputListener
                 if (deets) selectedText.text = deets.name;
             }
         }
+    }
 
+    public void SetSelected(ItemController select)
+    {
+        var pos = list.IndexOf(select);
+        if (pos <= -1) return;
+        
+        selectedPosition = pos;
+        DisplayList();
     }
 
     public ItemController GetSelected()

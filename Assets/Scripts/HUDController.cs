@@ -135,7 +135,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
                 ItemController invCon = inventory.GetComponent<InventoryController>().GetSelected();
                 if (invCon)
                 {
-                    invCon.OnItemSelected();
+                    invCon.OnItemClicked();
                 }
             }
         }
