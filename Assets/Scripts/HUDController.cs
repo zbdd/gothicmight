@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
@@ -5,7 +6,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class HUDController : MonoBehaviour, IPlayerInputListener
+public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<EventMessage>
 {
     GameObject questlog;
     float speed = 10f;
@@ -22,6 +23,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
     public bool dialogIsActive;
     public WeaponController weapon;
     public TextMeshProUGUI debugText;
+    public TextMeshProUGUI locationUpdate;
 
     public enum State
     {
@@ -39,6 +41,8 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
 
         StarterAssetsInputs startInput = GameObject.Find("PlayerCapsule").GetComponent<StarterAssetsInputs>();
         startInput.Register(this);
+
+        WorldState.World.Subscribe(this);
     }
 
     // Update is called once per frame
@@ -146,6 +150,37 @@ public class HUDController : MonoBehaviour, IPlayerInputListener
             case StarterAssetsInputs.Input.FightMode:
                 SetState(CurrentState == State.fight ? OldState : State.fight);
                 break;
+        }
+    }
+
+    public void OnCompleted()
+    {
+       
+    }
+
+    public void OnError(Exception error)
+    {
+       
+    }
+
+    public void OnNext(EventMessage value)
+    {
+        if (value.Type == EventMessage.MessageType.Location) HandleLocationUpdate(value.Message);
+    }
+
+    private void HandleLocationUpdate(string message)
+    {
+        locationUpdate.alpha = 2f;
+        locationUpdate.text = "Entering " + message;
+        StartCoroutine(FadeToBlack(2f));
+    }
+
+    private IEnumerator FadeToBlack(float time)
+    {
+        while (locationUpdate.alpha > 0.0f)
+        {
+            locationUpdate.alpha -= Time.deltaTime / time;
+            yield return null;
         }
     }
 }

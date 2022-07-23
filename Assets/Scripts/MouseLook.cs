@@ -39,6 +39,8 @@ public class MouseLook : MonoBehaviour
         var position = new Vector3(thisPosition.x, thisPosition.y + 1, thisPosition.z);
 
         if (!Physics.Raycast(position, transform.forward, out hit, Mathf.Infinity)) return;
+
+        if (hit.transform.CompareTag("Location")) return;
         
         Details deets = hit.transform.GetComponent<Details>();
         if (deets)
@@ -57,6 +59,7 @@ public class MouseLook : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
+            if (hit.transform.CompareTag("Location")) return;
            // Debug.Log(hit.transform.name);
            Details deets = hit.transform.GetComponent<Details>();
             if (deets)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -9,7 +10,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour, IPlayerInputListener
+	public class FirstPersonController : MonoBehaviour, IPlayerInputListener, IObserver<WorldState>
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -306,6 +307,21 @@ namespace StarterAssets
 					OnFightModeActivated();
 					break;
 			}
+		}
+
+		public void OnCompleted()
+		{
+			
+		}
+
+		public void OnError(Exception error)
+		{
+			
+		}
+
+		public void OnNext(WorldState value)
+		{
+			
 		}
 	}
 }
