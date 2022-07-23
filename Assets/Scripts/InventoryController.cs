@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviour, IPlayerInputListener
 {
     public List<ItemController> list;
     public GameObject selected;
@@ -19,6 +20,7 @@ public class InventoryController : MonoBehaviour
     private void Start()
     {
         list ??= new List<ItemController>();
+        GameObject.Find("PlayerCapsule").GetComponent<StarterAssetsInputs>().Register(this);
     }
 
     public void OpenInventory()
@@ -46,6 +48,8 @@ public class InventoryController : MonoBehaviour
             if (i > 0) yAxis = 110 * Mathf.FloorToInt(i / maxX);
 
             if (selectedPosition == -1) selectedPosition = 0;
+            else if (selectedPosition > list.Count - 1) selectedPosition = list.Count - 1;
+            
             if (selectedPosition == i) selected.transform.localPosition = new Vector3((startPos.x + xAxis), (startPos.y - yAxis));
    
             obj.transform.localPosition = new Vector3(startPos.x + xAxis, startPos.y - yAxis);
@@ -72,5 +76,28 @@ public class InventoryController : MonoBehaviour
     {
         if (selectedPosition > -1) return (list[selectedPosition]).GetComponent<ItemController>();
         else return null;
+    }
+
+    public void OnUpdateFromHandler(StarterAssetsInputs.Input type)
+    {
+        if (!gameObject.activeSelf) return;
+        
+        switch (type)
+        {
+            case StarterAssetsInputs.Input.Left:
+                selectedPosition--;
+                break;
+            case StarterAssetsInputs.Input.Right:
+                selectedPosition++;
+                break;
+            case StarterAssetsInputs.Input.Up:
+                selectedPosition -= 3;
+                break;
+            case StarterAssetsInputs.Input.Down:
+                selectedPosition += 3;
+                break;
+        }
+        
+        DisplayList();
     }
 }

@@ -31,6 +31,10 @@ namespace StarterAssets
 		{
 			Any,
 			FightMode,
+			Left,
+			Right,
+			Up,
+			Down
 		}
         private void Update()
         {
@@ -41,6 +45,11 @@ namespace StarterAssets
         public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
+			
+			if (value.Get<Vector2>().x > 0) Broadcast(Input.Right);
+			if (value.Get<Vector2>().x < 0) Broadcast(Input.Left);
+			if (value.Get<Vector2>().y > 0) Broadcast(Input.Up);
+			if (value.Get<Vector2>().y < 0) Broadcast(Input.Down);
 		}
 
 		public void OnLook(InputValue value)
