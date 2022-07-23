@@ -1,30 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    private ArrayList list;
+    public List<ItemController> list;
     public GameObject selected;
     public int selectedPosition = -1;
-    Vector3 startPos;
+    public Image selectedImage;
+    public TextMeshProUGUI selectedText;
+    readonly Vector3 startPos = new Vector3(-115f, 160f);
     int maxX = 3;
 
 
     private void Start()
     {
-        list = new ArrayList();
-        startPos = new Vector3(380, 200);
-
-        AddToList(GameObject.Find("Questlog"));
+        list ??= new List<ItemController>();
     }
 
-    private void Update()
+    public void OpenInventory()
     {
-        
+        list.Sort();
+        DisplayList();
     }
 
-    public void AddToList(GameObject item)
+    public void AddToList(ItemController item)
     {
         list.Add(item);
         list.Sort();
@@ -35,24 +38,39 @@ public class InventoryController : MonoBehaviour
     {
         for(var i =0; i < list.Count; i++)
         {
-            GameObject obj = list[i] as GameObject;
+            ItemController obj = list[i];
             var xAxis = 0;
             var yAxis = 0;
 
-            if (i > 0) xAxis = 110 * (maxX / i);
+            if (i > 0) xAxis = 110 * Mathf.FloorToInt(i%maxX);
             if (i > 0) yAxis = 110 * Mathf.FloorToInt(i / maxX);
 
-            if (selectedPosition == -1) selectedPosition = i;
-            if (selectedPosition == i) selected.transform.localPosition = new Vector3(startPos.x + xAxis, startPos.y + yAxis);
-            obj.transform.localPosition = new Vector3(startPos.x + xAxis, startPos.y + yAxis);
+            if (selectedPosition == -1) selectedPosition = 0;
+            if (selectedPosition == i) selected.transform.localPosition = new Vector3((startPos.x + xAxis), (startPos.y - yAxis));
+   
+            obj.transform.localPosition = new Vector3(startPos.x + xAxis, startPos.y - yAxis);
 
            // Debug.Log("" + startPos.x + (110 * xAxis) + "" + startPos.y + (110 * Mathf.FloorToInt(i / maxX)));
         }
+
+        if (selectedPosition > -1)
+        {
+            ItemController select = (list[selectedPosition]);
+            if (select)
+            {
+                Image img = select.GetComponent<Image>();
+                if (img) selectedImage.sprite = img.sprite;
+
+                Details deets = select.GetComponent<Details>();
+                if (deets) selectedText.text = deets.name;
+            }
+        }
+
     }
 
-    public InventoryItemController GetSelected()
+    public ItemController GetSelected()
     {
-        if (selectedPosition > -1) return (list[selectedPosition] as GameObject).GetComponent<InventoryItemController>();
+        if (selectedPosition > -1) return (list[selectedPosition]).GetComponent<ItemController>();
         else return null;
     }
 }

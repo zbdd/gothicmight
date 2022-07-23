@@ -88,6 +88,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
                 break;
             case State.inventory:
                 inventory.SetActive(true);
+                inventory.GetComponent<InventoryController>().OpenInventory();
                 break;
         }
     }
@@ -131,7 +132,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         {
             if (inventory.GetComponent<InventoryController>().selectedPosition > -1)
             {
-                InventoryItemController invCon = inventory.GetComponent<InventoryController>().GetSelected();
+                ItemController invCon = inventory.GetComponent<InventoryController>().GetSelected();
                 if (invCon)
                 {
                     invCon.OnItemSelected();
