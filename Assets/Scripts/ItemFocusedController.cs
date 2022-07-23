@@ -9,7 +9,8 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     public Image image;
     public bool isActive = false;
     float speed = 6f;
-    Vector3 defaultPosition;
+    Vector3 _defaultPosition;
+    private Vector3 _newPosition;
     public HUDController hud;
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -22,7 +23,8 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        defaultPosition = transform.position;
+        _defaultPosition = transform.position;
+        _newPosition = new Vector3(600, 350, 0);
     }
 
     // Update is called once per frame
@@ -30,12 +32,11 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     {
         if (isActive)
         {
-            var newPosition = new Vector3(767, 300, 0);
-            transform.position = Vector3.MoveTowards(transform.position, newPosition, speed);
+            if (transform.position != _newPosition) transform.position = Vector3.MoveTowards(transform.position, _newPosition, speed);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, defaultPosition, speed);
+            if (transform.position != _defaultPosition) transform.position = Vector3.MoveTowards(transform.position, _defaultPosition, speed);
         }
     }
 

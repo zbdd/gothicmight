@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 186017505}
   - component: {fileID: 186017507}
   m_Layer: 5
-  m_Name: ItemFocused
+  m_Name: ItemInFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,7 +331,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -201, y: -724}
-  m_SizeDelta: {x: 1200, y: 800}
+  m_SizeDelta: {x: 1000, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &186017505
 MonoBehaviour:
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 355546274}
   - component: {fileID: 355546273}
   m_Layer: 5
-  m_Name: Background
+  m_Name: HUD Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2311,7 +2311,7 @@ GameObject:
   - component: {fileID: 1117592388}
   - component: {fileID: 1117592387}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextInFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,8 +2334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 88, y: -75}
-  m_SizeDelta: {x: -62.59446, y: -21.38305}
+  m_AnchoredPosition: {x: 9.023804, y: -8.660004}
+  m_SizeDelta: {x: -220.5468, y: -154.063}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117592387
 MonoBehaviour:
@@ -2389,8 +2389,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2425,7 +2425,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 7.2745514, z: 670.5563, w: 0.55958176}
+  m_margin: {x: -25.272186, y: 7.2745514, z: 424.1507, w: 0.55958176}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2765,7 +2765,7 @@ GameObject:
   - component: {fileID: 1570837264}
   - component: {fileID: 1570837263}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: DebugBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3952,7 +3952,7 @@ GameObject:
   - component: {fileID: 2040661663}
   - component: {fileID: 2040661662}
   m_Layer: 5
-  m_Name: InViewText
+  m_Name: MouseLookText
   m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
