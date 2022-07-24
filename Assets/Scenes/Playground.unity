@@ -1468,6 +1468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9419661900fece7449e326f83b69656d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 135756641613574987}
+  soundWeaponAttack: {fileID: 8300000, guid: 3f7d8f9b275531948a2bf7b5b945b327, type: 3}
 --- !u!1 &735915965
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,6 +3574,7 @@ MonoBehaviour:
   anim: {fileID: 1706964480}
   audio: {fileID: 1706964483}
   stats: {fileID: 1706964487}
+  meleeAttackSound: {fileID: 8300000, guid: 3f7d8f9b275531948a2bf7b5b945b327, type: 3}
 --- !u!65 &1706964482
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3738,6 +3741,8 @@ MonoBehaviour:
   showHealthbar: 0
   healthBarfade: 1
   isPlayer: 0
+  soundDamageTaken: {fileID: 8300000, guid: b7b6c518e9461d44b83002995eacb180, type: 3}
+  audio: {fileID: 1706964483}
 --- !u!1 &1759299202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4758,6 +4763,8 @@ MonoBehaviour:
   showHealthbar: 0
   healthBarfade: 1
   isPlayer: 1
+  soundDamageTaken: {fileID: 8300000, guid: b7b6c518e9461d44b83002995eacb180, type: 3}
+  audio: {fileID: 135756641613574987}
 --- !u!114 &135756641613574982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4881,6 +4888,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   audio: {fileID: 135756641613574987}
   stats: {fileID: 135756641613574981}
+  meleeAttackSound: {fileID: 8300000, guid: 3f7d8f9b275531948a2bf7b5b945b327, type: 3}
 --- !u!1001 &1562320839621134484
 PrefabInstance:
   m_ObjectHideFlags: 0

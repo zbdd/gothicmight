@@ -12,6 +12,8 @@ public class StatsController : MonoBehaviour
     public bool showHealthbar = false;
     public float healthBarfade = 1f;
     public bool isPlayer = false;
+    public AudioClip soundDamageTaken;
+    public AudioSource audio;
 
     private Animator _anim;
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -42,7 +44,12 @@ public class StatsController : MonoBehaviour
     private void OnDamageTaken(int newHealth)
     {
         health = newHealth;
-        
+
+        if (audio && soundDamageTaken)
+        {
+            audio.clip = soundDamageTaken;
+            audio.Play();
+        }
         if (healthbar)
         {
             healthbar.value = health;

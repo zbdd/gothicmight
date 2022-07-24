@@ -17,6 +17,9 @@ public class WeaponController : MonoBehaviour
     private State _oldState;
     private State _nextState;
 
+    public AudioSource audio;
+    public AudioClip soundWeaponAttack;
+
     public enum State
     {
         Raised,
@@ -86,5 +89,14 @@ public class WeaponController : MonoBehaviour
 
         _oldState = _currentState;
         _currentState = newState;
+
+        if (_currentState == State.Attack)
+        {
+            if (audio && soundWeaponAttack)
+            {
+                audio.clip = soundWeaponAttack;
+                audio.Play();
+            }
+        }
     }
 }

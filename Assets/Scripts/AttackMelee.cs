@@ -9,13 +9,19 @@ public class AttackMelee : MonoBehaviour
     public StatsController stats;
     private bool _attackDelay = false;
 
+    public AudioClip meleeAttackSound;
+
     public void Attack(GameObject other)
     {
         if (_attackDelay) return;
         
         _attackDelay = true;
         if (anim) anim.SetTrigger("Proximity");
-        if (!audio.isPlaying) audio.PlayDelayed(1f);
+        if (!audio.isPlaying && meleeAttackSound)
+        {
+            audio.PlayDelayed(1f);
+            
+        }
 
         if (other)
         {
