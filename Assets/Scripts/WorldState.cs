@@ -15,6 +15,7 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
     public AudioSource audioSource;
 
     private ArrayList listeners = new ArrayList();
+    public GameObject player;
 
     void Awake()
     {
@@ -24,6 +25,11 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
             World = this;
          
         DontDestroyOnLoad(this);
+    }
+
+    private void Update()
+    {
+        transform.position = player.transform.position;
     }
 
     void Start()
