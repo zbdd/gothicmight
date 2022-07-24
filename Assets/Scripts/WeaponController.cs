@@ -17,7 +17,7 @@ public class WeaponController : MonoBehaviour
     private State _oldState;
     private State _nextState;
 
-    public AudioSource audio;
+    public new AudioSource audio;
     public AudioClip soundWeaponAttack;
 
     public enum State

@@ -1,19 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using Interfaces;
 
-public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IComparable<ItemController>
+public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IComparable<ItemController>, IDetails
 {
     private HUDController _hud;
 
     public bool canPickUp = false;
     public bool canEquip = false;
     public bool canFocus = false;
-    
+
+    public Sprite imageFocused;
+    public string itemFocusedText;
     public ItemStats stats;
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -27,20 +26,13 @@ public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public void OnItemClicked()
     {
-        if (_hud && canFocus) _hud.ShowFocused(GetComponent<Image>());
+        if (_hud && canFocus) _hud.ShowFocused(this);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         _hud = GameObject.Find("HUD").GetComponent<HUDController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
     }
 
     public int CompareTo(ItemController other)
@@ -52,4 +44,7 @@ public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
         return String.CompareOrdinal(d1.name, d2.name);
     }
+
+    public string Name { get; set; }
+    public string Description { get; set; }
 }

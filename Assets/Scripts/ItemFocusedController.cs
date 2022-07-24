@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,17 +6,23 @@ using UnityEngine.UI;
 public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
-    public bool isActive = false;
-    float speed = 6f;
+    public TextMeshProUGUI text;
+    public float speed;
     Vector3 _defaultPosition;
     private Vector3 _newPosition;
     public HUDController hud;
+    private ItemController _item;
+    private State _state = State.Idle;
+
+    private enum State
+    {
+        Raise,
+        Lower,
+        Idle
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isActive)
-        {
-            ToggleActive(false);
-        }
+        if (_state == State.Raise) SetState(State.Lower);
     }
 
     // Start is called before the first frame update
@@ -30,19 +35,38 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
+        switch (_state)
         {
-            if (transform.position != _newPosition) transform.position = Vector3.MoveTowards(transform.position, _newPosition, speed);
-        }
-        else
-        {
-            if (transform.position != _defaultPosition) transform.position = Vector3.MoveTowards(transform.position, _defaultPosition, speed);
+            case State.Raise:
+            {
+                if (transform.position != _newPosition)
+                    transform.position = Vector3.MoveTowards(transform.position, _newPosition, speed);
+                else SetState(State.Idle);
+                break;
+            }
+            case State.Lower:
+            {
+                if (transform.position != _defaultPosition) transform.position = Vector3.MoveTowards(transform.position, _defaultPosition, speed);
+                else SetState(State.Idle);
+                break;
+            }
         }
     }
 
-    public void ToggleActive(bool state)
+    private void SetState(State state)
     {
-        isActive = state;
-        if (!isActive) hud.OnItemFocusedClosed();
+        _state = state;
+    }
+
+    public void LoadItem(ItemController item)
+    {
+        _item = item;
+        image.sprite = _item.imageFocused ? _item.imageFocused : _item.GetComponent<Image>().sprite;
+        SetState(State.Raise);
+    }
+
+    public void Close()
+    {
+        SetState(State.Lower);
     }
 }

@@ -24,13 +24,26 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
         DontDestroyOnLoad(this);
     }
 
+    void Start()
+    {
+        if (PlayerJournal.Count <= 0)
+        {
+            PlayerJournal.Add(new JournalEntry("Day 1", "Day 1"));
+        }
+    }
+
+    public void AddToJournal(JournalEntry entry)
+    {
+        PlayerJournal.Add(entry);
+    }
+
     public void AddToAreasVisited(string place)
     {
         if (AreasVisited.Contains(place)) return;
         
         AreasVisited.Add(place);
         Broadcast(new EventMessage(EventMessage.MessageType.Location, place));
-        PlayerJournal.Add("Arrived at " + place);
+        AddToJournal(new JournalEntry(place, "Arrived at " + place));
     }
 
     public void Broadcast(EventMessage message)

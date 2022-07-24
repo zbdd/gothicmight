@@ -13,7 +13,7 @@ public class StatsController : MonoBehaviour
     public float healthBarfade = 1f;
     public bool isPlayer = false;
     public AudioClip soundDamageTaken;
-    public AudioSource audio;
+    public new AudioSource audio;
 
     private Animator _anim;
     private static readonly int Hit = Animator.StringToHash("Hit");

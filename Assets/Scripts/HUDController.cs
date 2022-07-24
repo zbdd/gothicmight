@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<EventMessage>
 {
@@ -73,7 +71,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
                 break;
             case State.inventory:
                 inventory.SetActive(false);
-                if (itemFocus.GetComponent<ItemFocusedController>().isActive) itemFocus.GetComponent<ItemFocusedController>().ToggleActive(false);
+                if (itemFocus.GetComponent<ItemFocusedController>()) itemFocus.GetComponent<ItemFocusedController>().Close();
                 break;
         }
         
@@ -111,7 +109,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     private void CloseOther()
     {
         if (dialogIsActive) CloseDialogBox();
-        if (iFC.isActive) iFC.ToggleActive(false); 
+        iFC.Close(); 
     }
 
     public void CloseDialogBox()
@@ -120,10 +118,9 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         dialogBox.SetActive(false);
     }
 
-    public void ShowFocused(Image image)
+    public void ShowFocused(ItemController item)
     {
-        iFC.image = image;
-        iFC.ToggleActive(true);
+        iFC.LoadItem(item);
         invCont.SetSelectedView(false);
     }
 
