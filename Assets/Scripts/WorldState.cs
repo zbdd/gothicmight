@@ -45,6 +45,7 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
 
     public void AddToJournal(JournalEntry entry)
     {
+        GameObject.Find("HUD").GetComponent<HUDController>().AddTextEvent("Journal entry added");
         PlayerJournal.Add(entry);
     }
 

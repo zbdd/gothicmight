@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
 using TMPro;
@@ -23,6 +24,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     public WeaponController weapon;
     public TextMeshProUGUI debugText;
     public TextMeshProUGUI locationUpdate;
+    public TextMeshProUGUI _textEvent;
 
     public enum State
     {
@@ -48,8 +50,21 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
     void Update()
     {
         if (questLogIsOpen) questlog.transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
         debugText.text = CurrentState + "";
+    }
+
+    public void AddTextEvent(string text)
+    {
+        if (String.CompareOrdinal(_textEvent.text, "") != 0) return;
+
+        _textEvent.text = text;
+       StartCoroutine(WaitThenClearTextEvent(2f));
+    }
+
+    private IEnumerator WaitThenClearTextEvent(float timeInSeconds)
+    {
+        yield return new WaitForSeconds(timeInSeconds);
+        _textEvent.text = "";
     }
 
     public void SetState(State newState)
