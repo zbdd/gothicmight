@@ -32,8 +32,11 @@ public class StatsController : MonoBehaviour
     {
         if (isPlayer) return;
         
-        var parent = gameObject.transform.position;
-        healthbar.transform.position = new Vector3(parent.x, parent.y + 0.6f, parent.z);
+        var parent = gameObject.transform;
+        healthbar.transform.position = new Vector3(parent.position.x, parent.position.y + 0.6f, parent.position.z);
+
+        parent.forward = Camera.main.transform.forward;
+
     }
 
     private void OnDamageTaken(int newHealth)
