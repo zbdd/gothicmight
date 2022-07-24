@@ -1,5 +1,7 @@
 
-public class JournalEntry
+using UnityEngine;
+
+public class JournalEntry: MonoBehaviour
 {
     public string entryName;
     public string journalEntry;
