@@ -32,6 +32,17 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
         }
     }
 
+    public string GetJournalEntries()
+    {
+        var journal = "";
+        foreach (JournalEntry entry in PlayerJournal)
+        {
+            journal += entry.journalEntry + "\n";
+        }
+
+        return journal;
+    }
+
     public void AddToJournal(JournalEntry entry)
     {
         PlayerJournal.Add(entry);

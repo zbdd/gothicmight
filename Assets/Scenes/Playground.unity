@@ -384,7 +384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 186017505}
-  isActive: 0
+  text: {fileID: 1117592387}
+  speed: 6
   hud: {fileID: 773052795}
 --- !u!1 &202690251
 GameObject:
@@ -1373,28 +1374,14 @@ GameObject:
   m_Component:
   - component: {fileID: 695744836}
   - component: {fileID: 695744835}
-  - component: {fileID: 695744834}
+  - component: {fileID: 695744837}
   m_Layer: 0
-  m_Name: JournalEntry
+  m_Name: ProximityEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &695744834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695744833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7095ab6ade2c1624b96694a80c2fdde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryName: Where am I?
-  journalEntry: I'm new here. I need to find out where I've ended up and soon.
 --- !u!65 &695744835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1423,6 +1410,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695744837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695744833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2947a0ae171ca34f9d56360e0528215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &699756012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4629,7 +4628,7 @@ GameObject:
   - component: {fileID: 2130155992}
   - component: {fileID: 2130155991}
   m_Layer: 5
-  m_Name: Container
+  m_Name: Items
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

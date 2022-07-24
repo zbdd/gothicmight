@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Interfaces;
 
-public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IComparable<ItemController>, IDetails
+public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IComparable<ItemController>
 {
     private HUDController _hud;
 
@@ -13,6 +12,7 @@ public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public Sprite imageFocused;
     public string itemFocusedText;
+    public string description;
     public ItemStats stats;
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -44,7 +44,4 @@ public class ItemController : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
         return String.CompareOrdinal(d1.name, d2.name);
     }
-
-    public string Name { get; set; }
-    public string Description { get; set; }
 }
