@@ -62,7 +62,7 @@ public class ItemFocusedController : MonoBehaviour, IPointerClickHandler
     {
         _item = item;
         image.sprite = _item.imageFocused ? _item.imageFocused : _item.GetComponent<Image>().sprite;
-        if (name == "Questlog")
+        if (item.name == "Questlog")
         {
             text.text = WorldState.World.GetJournalEntries();
         }

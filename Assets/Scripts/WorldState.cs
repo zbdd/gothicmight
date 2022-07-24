@@ -37,7 +37,7 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
         var journal = "";
         foreach (JournalEntry entry in PlayerJournal)
         {
-            journal += entry.journalEntry + "\n";
+            journal += "\n" + entry.journalEntry + "\n";
         }
 
         return journal;
