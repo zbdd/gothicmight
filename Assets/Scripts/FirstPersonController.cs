@@ -78,6 +78,7 @@ namespace StarterAssets
 		private MouseLook _mouse;
 
 		private const float _threshold = 0.01f;
+		private AttackMelee _attackMelee;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -107,7 +108,6 @@ namespace StarterAssets
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 			_playerInput = GetComponent<PlayerInput>();
-			hud = GameObject.Find("HUD").GetComponent<HUDController>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -115,6 +115,9 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			
+			hud = GameObject.Find("HUD").GetComponent<HUDController>();
+			_attackMelee = GetComponent<AttackMelee>();
 		}
 
 		private void Update()
@@ -132,6 +135,10 @@ namespace StarterAssets
 			if (_input.interact && hud.CurrentState.Equals(HUDController.State.fight))
 			{
 				
+				if (_attackMelee)
+				{
+					_attackMelee.Attack(_mouse.CastFromCamera());
+				}
 				_input.interact = false;
 			}
 		}
@@ -154,7 +161,7 @@ namespace StarterAssets
 
 		private void Interact()
         {
-			if (_input.interact && _mouse.objectInFocus)
+			if (_input.interact && _mouse.objectInFocus && hud.CurrentState != HUDController.State.fight)
 			{
 				IInteractable interact = _mouse.objectInFocus.GetComponent<NPCController>();
 				interact?.OnInteract(gameObject);

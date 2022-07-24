@@ -23,7 +23,6 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        objectInFocus = null;
         if (hud)
         {
             if (hud.CurrentState == HUDController.State.idle) CastFromScreen(); 
@@ -31,16 +30,15 @@ public class MouseLook : MonoBehaviour
         }
     }
 
-    private void CastFromCamera()
+    public GameObject CastFromCamera()
     {
-        RaycastHit hit;
         txt.text = "";
         var thisPosition = transform.position;
         var position = new Vector3(thisPosition.x, thisPosition.y + 1, thisPosition.z);
 
-        if (!Physics.Raycast(position, transform.forward, out hit, Mathf.Infinity)) return;
+        if (!Physics.Raycast(position, transform.forward, out var hit, Mathf.Infinity)) return null;
 
-        if (hit.transform.CompareTag("Location")) return;
+        if (hit.transform.CompareTag("Location")) return null;
         
         Details deets = hit.transform.GetComponent<Details>();
         if (deets)
@@ -49,6 +47,8 @@ public class MouseLook : MonoBehaviour
             objectInFocus = hit.transform.gameObject;
 
         }
+
+        return hit.transform.gameObject;
     }
 
     private void CastFromScreen()

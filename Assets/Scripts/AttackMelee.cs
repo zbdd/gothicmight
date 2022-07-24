@@ -4,40 +4,38 @@ using UnityEngine;
 
 public class AttackMelee : MonoBehaviour
 {
-    Animator anim;
-    new AudioSource audio;
-    StatsController _stats;
-    bool attackDelay = false;
+    public Animator anim;
+    public new AudioSource audio;
+    public StatsController stats;
+    private bool _attackDelay = false;
 
-    private void Start()
+    public void Attack(GameObject other)
     {
-        anim = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
-        _stats = GetComponent<StatsController>();
-    }
+        if (_attackDelay) return;
+        
+        _attackDelay = true;
+        if (anim) anim.SetTrigger("Proximity");
+        if (!audio.isPlaying) audio.PlayDelayed(1f);
 
-    public void Attack(GameObject attackObject)
-    {
-        if (!attackObject) return;
-        if (attackDelay) return;
-
-        attackDelay = true;
-
-        StatsController stats = attackObject.GetComponent<StatsController>();
-        if (stats)
+        if (other)
         {
-            anim.SetTrigger("Proximity");
-            if (!audio.isPlaying) audio.PlayDelayed(1f);
-            stats.SetHealth(stats.health - _stats.attack);
+            StatsController otherStats = other.GetComponent<StatsController>();
+            if (otherStats)
+            {
+                otherStats.SetHealth(otherStats.health - stats.attack);
+            }
         }
 
-        StartCoroutine(AttackWait());
+        var delay = 1f;
+        if (stats) delay = stats.attackSpeed; 
+        
+        StartCoroutine(AttackWait(delay));
     }
 
-    IEnumerator AttackWait()
+    IEnumerator AttackWait(float delayInSeconds)
     {
-        yield return new WaitForSeconds(_stats.attackSpeed);
-        attackDelay = false;
+        yield return new WaitForSeconds(delayInSeconds);
+        _attackDelay = false;
         audio.Stop();
     }
 }
