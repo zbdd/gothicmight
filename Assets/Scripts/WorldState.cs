@@ -11,6 +11,8 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
     private static ArrayList CharactersMet = new ArrayList();
     private static ArrayList AreasVisited = new ArrayList();
     private static ArrayList PlayerJournal = new ArrayList();
+    public AudioClip AddToJournalSfx;
+    public AudioSource audioSource;
 
     private ArrayList listeners = new ArrayList();
 
@@ -47,6 +49,10 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
     {
         GameObject.Find("HUD").GetComponent<HUDController>().AddTextEvent("Journal entry added");
         PlayerJournal.Add(entry);
+        
+        if (!audioSource || !AddToJournalSfx) return;
+        audioSource.clip = AddToJournalSfx;
+        audioSource.Play();
     }
 
     public void AddToAreasVisited(string place)
