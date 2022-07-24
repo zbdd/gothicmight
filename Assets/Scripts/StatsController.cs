@@ -11,6 +11,7 @@ public class StatsController : MonoBehaviour
     public int attackSpeed = 2;
     public bool showHealthbar = false;
     public float healthBarfade = 1f;
+    public bool isPlayer = false;
 
     private Animator _anim;
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -29,7 +30,10 @@ public class StatsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isPlayer) return;
         
+        var parent = gameObject.transform.position;
+        healthbar.transform.position = new Vector3(parent.x, parent.y + 0.6f, parent.z);
     }
 
     private void OnDamageTaken(int newHealth)
