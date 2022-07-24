@@ -28,7 +28,7 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
     {
         if (PlayerJournal.Count <= 0)
         {
-            PlayerJournal.Add(new JournalEntry("Day 1", "Day 1"));
+            PlayerJournal.Add(GetComponent<JournalEntry>());
         }
     }
 
@@ -54,7 +54,6 @@ public class WorldState : MonoBehaviour, IObservable<EventMessage>
         
         AreasVisited.Add(place);
         Broadcast(new EventMessage(EventMessage.MessageType.Location, place));
-        AddToJournal(new JournalEntry(place, "Arrived at " + place));
     }
 
     public void Broadcast(EventMessage message)

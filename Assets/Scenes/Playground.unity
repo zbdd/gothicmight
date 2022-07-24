@@ -907,6 +907,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: New Durbsford
+--- !u!114 &386354137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386354125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7095ab6ade2c1624b96694a80c2fdde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryName: First time to DurbersFord
+  journalEntry: I've arrived in Durbersford
+  triggerCount: 1
+--- !u!114 &386354138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386354125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7aa99a21bc9a944aaac52fb81b5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402023353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,7 +1401,8 @@ GameObject:
   m_Component:
   - component: {fileID: 695744836}
   - component: {fileID: 695744835}
-  - component: {fileID: 695744837}
+  - component: {fileID: 695744838}
+  - component: {fileID: 695744839}
   m_Layer: 0
   m_Name: ProximityEvent
   m_TagString: Untagged
@@ -1390,7 +1418,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695744833}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1410,7 +1438,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &695744837
+--- !u!114 &695744838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1419,7 +1447,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 695744833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2947a0ae171ca34f9d56360e0528215, type: 3}
+  m_Script: {fileID: 11500000, guid: 7095ab6ade2c1624b96694a80c2fdde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryName: Discovery
+  journalEntry: I have no idea where I've appeared. I need to investigate this town
+    and figure out where I am
+  triggerCount: 1
+--- !u!114 &695744839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695744833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7aa99a21bc9a944aaac52fb81b5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &699756012
@@ -3807,6 +3851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1759299204}
   - component: {fileID: 1759299203}
+  - component: {fileID: 1759299205}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -3841,6 +3886,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1759299205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759299202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7095ab6ade2c1624b96694a80c2fdde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryName: Day 1
+  journalEntry: Day 1
+  triggerCount: 1
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,7 +5303,7 @@ PrefabInstance:
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: m_Name
-      value: PlayerCapsule
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}

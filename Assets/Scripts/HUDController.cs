@@ -38,7 +38,7 @@ public class HUDController : MonoBehaviour, IPlayerInputListener, IObserver<Even
         targetPosition = new Vector3(0, -710, 0);
         iFC = itemFocus.GetComponent<ItemFocusedController>();
 
-        StarterAssetsInputs startInput = GameObject.Find("PlayerCapsule").GetComponent<StarterAssetsInputs>();
+        StarterAssetsInputs startInput = GameObject.Find("Player").GetComponent<StarterAssetsInputs>();
         startInput.Register(this);
 
         WorldState.World.Subscribe(this);

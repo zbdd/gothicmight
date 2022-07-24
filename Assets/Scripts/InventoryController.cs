@@ -20,7 +20,7 @@ public class InventoryController : MonoBehaviour, IPlayerInputListener
     private void Start()
     {
         list ??= new List<ItemController>();
-        GameObject.Find("PlayerCapsule").GetComponent<StarterAssetsInputs>().Register(this);
+        GameObject.Find("Player").GetComponent<StarterAssetsInputs>().Register(this);
     }
 
     public void OpenInventory()
